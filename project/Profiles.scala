@@ -22,6 +22,7 @@ object Profiles {
   )
 
   lazy val stage: Map[String, String] = base ++ Map(
+    "port" -> "8082",
     "access.properties.path" -> "stage/access.conf",
     "audit.log.save.days" -> "30",
     "warehouse.log.save.days" -> "120",
@@ -40,6 +41,7 @@ object Profiles {
   )
 
   lazy val prod: Map[String, String] = base ++ Map(
+    "port" -> "8083",
     "access.properties.path" -> "prod/access.conf",
     "es.number_of_shards" -> "6",
     "audit.log.save.days" -> "60",
@@ -56,7 +58,7 @@ object Profiles {
     "dataimport.processing.targetEnv.config" -> "proc/prod-pool.conf",
     "dataimport.cluster.targetEnv.config" -> "env/prod-cluster.conf"
   )
-
+/*
   lazy val `azure-qa`: Map[String, String] = base ++ Map(
     "access.properties.path" -> "azure-qa/access.conf",
     "es.number_of_shards" -> "6",
@@ -143,7 +145,7 @@ object Profiles {
     "csrf.protection.disabled" -> "false",
     "dataimport.processing.targetEnv.config" -> "proc/demo-pool.conf",
     "dataimport.cluster.targetEnv.config" -> "env/demo-cluster.conf"
-  )
+  )*/
 
   private lazy val base: Map[String, String] = Map(
     "es.number_of_shards" -> "2",
