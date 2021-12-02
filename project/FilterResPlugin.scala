@@ -15,22 +15,25 @@ object FilterResPlugin extends AutoPlugin {
   object autoImport extends Keys
 
   def replaceVars(res: File, dictionary: Map[String, String]): Unit = {
-    res.listFiles foreach { file =>
-      if (file.isFile) {
-        val in = Source.fromFile(file)
-        val tmp = new File(file.getPath.replace(file.getName, "tmp.conf"))
-        val out = new PrintWriter(tmp)
-        in.getLines.map { line =>
-          dictionary.foldLeft(line) { case (cur, (from, to)) =>
-            cur.replace("${" + from + "}", to)
-          }
-        }.foreach(out.println)
-        in.close()
-        out.close()
-        file.delete()
-        tmp.renameTo(file)
-      }
+    res.listFiles foreach {
+      case file if file.isFile => editFile(file, dictionary)
+      case file if file.isDirectory => replaceVars(file, dictionary)
     }
+  }
+
+  private def editFile(file: File, dictionary: Map[String, String]) = {
+    val in = Source.fromFile(file)
+    val tmp = new File(file.getPath.replace(file.getName, "tmp.conf"))
+    val out = new PrintWriter(tmp)
+    in.getLines.map { line =>
+      dictionary.foldLeft(line) { case (cur, (from, to)) =>
+        cur.replace("${" + from + "}", to)
+      }
+    }.foreach(out.println)
+    in.close()
+    out.close()
+    file.delete()
+    tmp.renameTo(file)
   }
 }
 
