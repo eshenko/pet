@@ -16,7 +16,8 @@ object Settings {
     compile := (Compile / compile).dependsOn(replace).value,
     dictionary := Profiles.prod,
     replace := Def.task {
-      replaceVars((Compile / resourceDirectory).value, dictionary.value)
+      IO.copyDirectory(from.value,to.value)
+      replaceVars(to.value, dictionary.value, extensions.value)
     }.value
   ))
 
@@ -24,7 +25,8 @@ object Settings {
     compile := (Compile / compile).dependsOn(replace).value,
     dictionary := Profiles.stage,
     replace := Def.task {
-      replaceVars((Compile / resourceDirectory).value, dictionary.value)
+      IO.copyDirectory(from.value,to.value)
+      replaceVars(to.value, dictionary.value, extensions.value)
     }.value
   ))
 
@@ -32,9 +34,17 @@ object Settings {
     compile := (Compile / compile).dependsOn(replace).value,
     dictionary := Profiles.local,
     replace := Def.task {
-      replaceVars((Compile / resourceDirectory).value, dictionary.value)
+      IO.copyDirectory(from.value,to.value)
+      replaceVars(to.value, dictionary.value, extensions.value)
     }.value
   ))
 
-  val profileSettings = prodSettings ++ stageSettings ++ localSettings
+  val sharedSettings = prodSettings ++ stageSettings ++ localSettings ++ Seq(
+    mainVersion := scalaVersion.value.split("""\.""").take(2).mkString("."),
+    to := target.value / ("scala-" + mainVersion.value) / "classes",
+    from := baseDirectory.value / "src" / "main" / "resources",
+    extensions := Seq(".properties", ".conf", ".xml"),
+    Compile / unmanagedResources :=
+      (Compile / unmanagedResources).value.filter(_.getName.endsWith(extensions.value))
+  )
 }
