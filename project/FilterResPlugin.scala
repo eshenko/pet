@@ -1,8 +1,6 @@
 import sbt.PluginTrigger.AllRequirements
 import sbt.{AutoPlugin, IO, PluginTrigger, settingKey, taskKey}
-
-import java.io.{File, PrintWriter}
-import scala.io.Source
+import java.io.File
 
 object FilterResPlugin extends AutoPlugin {
   override val trigger: PluginTrigger = AllRequirements
@@ -28,28 +26,13 @@ object FilterResPlugin extends AutoPlugin {
 
     private def editFile(file: File, dictionary: Map[String, String], extensions: Seq[String]) = {
       if (extensions.exists(file.getName.contains)) {
-        val tmp = new File(file.getPath.replace(file.getName, "tmp.conf"))
-        val out = new PrintWriter(tmp)
-        IO.readLines(file).map { line =>
+        val content = IO.readLines(file).map { line =>
           dictionary.foldLeft(line) { case (cur, (from, to)) =>
             cur.replace("${" + from + "}", to)
           }
-        }.foreach(out.println)
-        out.close()
-        file.delete()
-        tmp.renameTo(file)
+        }.mkString(System.lineSeparator())
+        IO.write(file, content)
       }
     }
-
-/*    private def revertFile(file: File) = {
-      val extension = ".backup"
-      if (file.getName.contains(extension)) {
-        val tmp = new File(file.getPath.replace(extension, ""))
-        tmp.delete()
-        file.renameTo(tmp)
-      }
-    }*/
   }
 }
-
-
