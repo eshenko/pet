@@ -1,3 +1,4 @@
+/*
 import sbt.PluginTrigger.AllRequirements
 import sbt.{AutoPlugin, IO, PluginTrigger, settingKey, taskKey}
 import java.io.File
@@ -36,3 +37,4 @@ object FilterResPlugin extends AutoPlugin {
     }
   }
 }
+*/

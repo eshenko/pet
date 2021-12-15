@@ -1,6 +1,8 @@
-import sbt._
+/*
+package notUsed
 
 object Dependencies {
+
   import Dependencies._
 
   val jsonDependencies = Seq(akkaHttpJson, jwtCore)
@@ -53,3 +55,4 @@ object Dependencies {
     val sl4j = "org.slf4j" % "slf4j-api" % Version.sl4j
   }
 }
+*/

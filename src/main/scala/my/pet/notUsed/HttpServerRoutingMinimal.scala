@@ -1,9 +1,10 @@
+/*
 package my.pet
 
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
 import akka.http.scaladsl.Http
-import my.pet.controller.FirstController
+import my.pet.notUsed.controller.FirstController
 import java.util.Properties
 
 object HttpServerRoutingMinimal extends App {
@@ -21,3 +22,4 @@ object HttpServerRoutingMinimal extends App {
 
   println(s"Server now online. Please navigate to http://localhost:$port/hello")
 }
+*/

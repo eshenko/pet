@@ -1,0 +1,13 @@
+<web-app>
+
+    <servlet>
+        <servlet-name>start</servlet-name>
+        <servlet-class>my.pet.Start</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>start</servlet-name>
+        <url-pattern>/start</url-pattern>
+    </servlet-mapping>
+
+</web-app>

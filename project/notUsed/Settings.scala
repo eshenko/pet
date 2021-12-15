@@ -1,5 +1,7 @@
+/*
 import Dependencies._
 import FilterResPlugin.autoImport._
+import com.earldouglas.xwp.WarPlugin
 import sbt.Keys._
 import sbt._
 
@@ -10,9 +12,9 @@ object Settings {
 
   val dependencySettings = libraryDependencies ++= akkaDependencies
 
-  val defaults: Seq[Def.Setting[_]] = Defaults.configSettings ++ Defaults.configTasks ++ Defaults.resourceConfigPaths
+  val defaults: Seq[Def.Setting[_]] = Defaults.configTasks ++ Defaults.resourceConfigPaths
 
-  val prodSettings: Seq[Def.Setting[_]] = inConfig(Prod)(defaults ++ Seq(
+  val prodSettings: Seq[Def.Setting[_]] = inConfig(Prod)(WarPlugin.projectSettings ++ defaults ++ Seq(
     compile := (Compile / compile).dependsOn(replace).value,
     dictionary := Profiles.prod,
     replace := Def.task {
@@ -21,7 +23,7 @@ object Settings {
     }.value
   ))
 
-  val stageSettings: Seq[Def.Setting[_]] = inConfig(Stage)(defaults ++ Seq(
+  val stageSettings: Seq[Def.Setting[_]] = inConfig(Stage)(WarPlugin.projectSettings ++ defaults ++ Seq(
     compile := (Compile / compile).dependsOn(replace).value,
     dictionary := Profiles.stage,
     replace := Def.task {
@@ -30,7 +32,7 @@ object Settings {
     }.value
   ))
 
-  val localSettings: Seq[Def.Setting[_]] = inConfig(Local)(defaults ++ Seq(
+  val localSettings: Seq[Def.Setting[_]] = inConfig(Local)(WarPlugin.projectSettings ++ defaults ++ Seq(
     compile := (Compile / compile).dependsOn(replace).value,
     dictionary := Profiles.local,
     replace := Def.task {
@@ -48,3 +50,4 @@ object Settings {
       (Compile / unmanagedResources).value.filter(_.getName.endsWith(extensions.value))
   )
 }
+*/

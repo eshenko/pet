@@ -1,3 +1,5 @@
+package notUsed
+
 object Profiles {
   lazy val default: Map[String, String] = local
 
@@ -58,7 +60,7 @@ object Profiles {
     "dataimport.processing.targetEnv.config" -> "proc/prod-pool.conf",
     "dataimport.cluster.targetEnv.config" -> "env/prod-cluster.conf"
   )
-/*
+  /*
   lazy val `azure-qa`: Map[String, String] = base ++ Map(
     "access.properties.path" -> "azure-qa/access.conf",
     "es.number_of_shards" -> "6",

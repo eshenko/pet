@@ -1,4 +1,5 @@
-package my.pet.controller
+/*
+package my.pet.notUsed.controller
 
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
 import akka.http.scaladsl.server.Directives.{complete, get, path}
@@ -12,3 +13,4 @@ class FirstController {
       }
     }
 }
+*/
